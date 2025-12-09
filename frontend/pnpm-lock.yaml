@@ -14600,11 +14600,7 @@ snapshots:
 
   vue-component-type-helpers@2.0.29: {}
 
-<<<<<<< HEAD
   vue-component-type-helpers@3.2.1: {}
-=======
-  vue-component-type-helpers@3.1.7: {}
->>>>>>> feat(auth): enhance login flow with system upgrade handling and UI improvements
 
   vue-demi@0.14.10(vue@3.5.18(typescript@5.9.3)):
     dependencies:
