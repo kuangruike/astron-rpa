@@ -6,6 +6,8 @@ import { SettingCenterModal } from '@/components/SettingCenterModal'
 import { VUE_APP_COMMANDER } from '@/constants'
 import { utilsManager } from '@/platform'
 import useUserSettingStore from '@/stores/useUserSetting.ts'
+import { useUserStore } from '@/stores/useUserStore'
+import { usePermissionStore } from '@/stores/usePermissionStore'
 
 import MessageTip from '../MesssageTip/Index.vue'
 import UserInfo from './UserInfo.vue'
@@ -21,12 +23,15 @@ interface HeaderControlProps {
 // 控制按钮显示
 const props = withDefaults(defineProps<HeaderControlProps>(), ({
   setting: true,
-  control: false,
+  control: true,
   message: true,
   userInfo: true,
 }))
 
 useUserSettingStore()
+
+const userStore = useUserStore()
+const permissionStore = usePermissionStore()
 
 function handleOpenSetting() {
   NiceModal.show(SettingCenterModal)
@@ -48,7 +53,7 @@ function handleToControl() {
     </span>
   </Tooltip>
 
-  <Tooltip v-if="props.control" :title="$t('excellenceCenter')">
+  <Tooltip v-if="props.control && userStore.currentTenant?.tenantType !== 'personal' && permissionStore.can('admin', 'all')" :title="$t('excellenceCenter')">
     <span class="app_control__item" @click="handleToControl">
       <rpa-icon name="desktop" />
     </span>
